@@ -1,6 +1,22 @@
-import PostPreview from '../components/post-preview'
+import { IAuthor, ICoverImage, Nod } from "lib/types";
+import { FC } from "react";
 
-export default function MoreStories({ posts }) {
+import { PostPreview } from "./PostPreview";
+
+interface Props {
+  posts: { node: IPost }[];
+}
+
+interface IPost {
+  slug: string;
+  title: string;
+  featuredImage?: Nod<ICoverImage>;
+  date: string;
+  author?: Nod<IAuthor>;
+  excerpt: string;
+}
+
+export const MoreStories: FC<Props> = ({ posts }) => {
   return (
     <section>
       <h2 className="mb-8 text-6xl md:text-7xl font-bold tracking-tighter leading-tight">
@@ -20,5 +36,5 @@ export default function MoreStories({ posts }) {
         ))}
       </div>
     </section>
-  )
-}
+  );
+};

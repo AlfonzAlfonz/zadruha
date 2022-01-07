@@ -1,3 +1,21 @@
+import styled from "@xstyled/emotion";
+import { FC } from "react";
+
+interface Props {
+  content: string;
+}
+
+export const PostBody: FC<Props> = ({ content }) => {
+  return (
+    <div className="max-w-2xl mx-auto">
+      <BodyStyle
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
+    </div>
+  );
+};
+
+export const BodyStyle = styled.div`
 .content {
   @apply text-lg leading-relaxed;
 }
@@ -74,3 +92,5 @@
 .content audio {
   @apply w-full;
 }
+
+`;
