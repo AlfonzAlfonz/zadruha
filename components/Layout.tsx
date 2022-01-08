@@ -47,7 +47,7 @@ export const Layout: FC<Props> = ({ menu, preview, children, _header, _container
           </x.nav>
         )}
       </x.header>
-      <x.div display="flex" flexDirection="column" bg="gray-200" minHeight="calc(100vh - 35px)" pt="120px" {..._container}>
+      <x.div display="flex" flexDirection="column" bg="gray-200" minHeight="calc(100vh - 40px)" pt="120px" {..._container}>
         {children}
       </x.div>
 

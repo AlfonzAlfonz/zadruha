@@ -4,27 +4,24 @@ import { Layout } from "components/Layout";
 import { PostPreview } from "components/PostPreview";
 import { Post } from "generated/graphql";
 import { backend } from "lib/api";
-import { buildMenu, FineMenuItem } from "lib/buildMenu";
+import { getProps, StaticPage } from "lib/getProps";
 import { Awaited, only } from "lib/utils";
-import { GetStaticPaths, GetStaticProps } from "next";
+import { GetStaticPaths } from "next";
 import { FC, Fragment } from "react";
 
-export const getStaticProps: GetStaticProps = async ({ params, preview = false, previewData }) => {
+export const getStaticProps = getProps(async ({ params }) => {
   const posts = await backend.GetCategoryWithPosts({ slug: only(params!.slug!) });
-  const menu = buildMenu(await backend.GetMenu());
 
   return {
     props: {
-      preview,
-      menu,
       posts
     }
   };
-};
+});
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const categories = await backend.GetCategorySlugs();
-  console.log(categories);
+
   return {
     paths: categories.categories?.edges?.map(e => `/rubrika/${e?.node?.slug!}`) ?? [],
     fallback: true
@@ -33,11 +30,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 interface Props {
   posts: Awaited<ReturnType<typeof backend.GetCategoryWithPosts>>;
-  preview: boolean;
-  menu: FineMenuItem[];
 }
 
-const Category: FC<Props> = ({ posts, preview, menu }) => {
+const Category: StaticPage<Props> = ({ posts, preview, menu }) => {
   const category = posts?.categories?.edges?.[0];
 
   return (

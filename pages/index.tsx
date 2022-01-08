@@ -1,30 +1,21 @@
 import { x } from "@xstyled/emotion";
 import { Button, Container } from "anolis-ui";
-import { Layout } from "components/Layout";
-import { backend, getAllPostsForHome } from "lib/api";
-import { buildMenu, FineMenuItem } from "lib/buildMenu";
+import { Layout, pageLink } from "components/Layout";
+import { PostPreview } from "components/PostPreview";
+import { getAllPostsForHome } from "lib/api";
+import { getProps, StaticPage } from "lib/getProps";
 import { Edges, IPost, Nod } from "lib/types";
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
-import { FC } from "react";
 
-import { pageLink } from "../components/Layout";
-import { PostPreview } from "../components/PostPreview";
-
-export const getStaticProps = async ({ preview = false }) => {
+export const getStaticProps = getProps(async ({ preview = false }) => {
   const allPosts = await getAllPostsForHome(preview);
-  const menu = await backend.GetMenu();
   return {
-    props: { allPosts, menu: buildMenu(menu), preview }
+    props: { allPosts }
   };
-};
+});
 
-const Index: FC<{
-  allPosts: Edges<Nod<IPost>>;
-  preview: boolean;
-  menu: FineMenuItem[];
-}> = ({ allPosts: { edges }, preview, menu }) => {
+const Index: StaticPage<{ allPosts: Edges<Nod<IPost>> }> = ({ allPosts: { edges }, preview, menu }) => {
   return (
     <>
       <Layout
