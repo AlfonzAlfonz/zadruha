@@ -50,35 +50,7 @@ const Post: FC<Props> = ({ preview, menu }) => {
       </x.div>
       {/* <Header /> */}
       <Container bg="white" minH="100vh" mt="-120px">
-        {/* {router.isFallback
-          ? <PostTitle>Loading…</PostTitle>
-          : (
-            <>
-              <x.article pt={4} px={2}>
-                <Head>
-                  <title>
-                    {post.title} | Next.js Blog Example with {CMS_NAME}
-                  </title>
-                  <meta
-                    property="og:image"
-                    content={post.featuredImage?.node?.sourceUrl}
-                  />
-                </Head>
-                <PostTitle>{post.title}</PostTitle>
-                <x.div fontSize="sm" py={2} display="flex" spaceX={2}>
-                  <Date dateString={post.date} /> <div>|</div> {post.author && <Avatar author={post.author.node} />}
-                </x.div>
-                <x.div fontSize="sm" py={2} display="flex" spaceX={2}>
-                  {post.tags.edges.length > 0 && <Tags tags={post.tags} />}
-                </x.div>
 
-                <PostBody content={post.content} />
-              </x.article>
-
-              <SectionSeparator />
-              {morePosts.length > 0 && <MoreStories posts={morePosts} />}
-            </>
-          )} */}
       </Container>
     </Layout>
   );

@@ -75,7 +75,7 @@ const Post: FC<Props> = ({ post, posts, preview, menu }) => {
                   </title>
                   <meta
                     property="og:image"
-                    content={post.featuredImage?.node?.sourceUrl}
+                    content={post.featuredImage?.node?.sourceUrl!}
                   />
                 </Head>
                 <PostTitle>{post.title}</PostTitle>

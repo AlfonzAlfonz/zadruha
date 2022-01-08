@@ -5,6 +5,7 @@
     "node": true
   },
   "extends": [
+    "plugin:@next/next/recommended",
     "alfonz"
   ],
   "globals": {

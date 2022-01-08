@@ -1,4 +1,4 @@
-import { IFullPost } from "lib/api";
+import { IFullPost } from "lib/types";
 import { FC } from "react";
 
 interface Props {

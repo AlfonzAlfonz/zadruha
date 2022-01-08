@@ -24,8 +24,9 @@ export const getStaticProps: GetStaticProps = async ({ params, preview = false, 
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const categories = await backend.GetCategorySlugs();
+  console.log(categories);
   return {
-    paths: categories.categories?.edges?.map(e => `/rubrika/${e?.node?.slug}`) ?? [],
+    paths: categories.categories?.edges?.map(e => `/rubrika/${e?.node?.slug!}`) ?? [],
     fallback: true
   };
 };
@@ -37,7 +38,7 @@ interface Props {
 }
 
 const Category: FC<Props> = ({ posts, preview, menu }) => {
-  const category = posts.categories?.edges?.[0];
+  const category = posts?.categories?.edges?.[0];
 
   return (
     <Layout preview={preview} menu={menu}>
