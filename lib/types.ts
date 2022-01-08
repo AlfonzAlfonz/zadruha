@@ -29,12 +29,12 @@ export interface IFullPost extends IPost {
 }
 
 export interface IAuthor {
-  firstName?: string;
-  lastName?: string;
-  name: string;
-  avatar: {
-    url: string;
-  };
+  firstName?: string | null;
+  lastName?: string | null;
+  name?: string | null;
+  avatar?: {
+    url?: string | null;
+  } | null;
 }
 
 export interface ICategory {
@@ -42,7 +42,7 @@ export interface ICategory {
 }
 
 export interface ICoverImage {
-  sourceUrl: string;
+  sourceUrl?: string | null;
 }
 
 export interface ITag {

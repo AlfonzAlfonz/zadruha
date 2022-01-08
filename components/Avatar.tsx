@@ -1,5 +1,5 @@
 import { x } from "@xstyled/emotion";
-import { IAuthor } from "lib/api";
+import { IAuthor } from "lib/types";
 import Image from "next/image";
 import { FC } from "react";
 

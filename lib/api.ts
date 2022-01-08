@@ -1,4 +1,6 @@
 import { IFullPost, Edges, Nod, IPost } from "./types";
+import { getSdk } from "../generated/graphql";
+import { GraphQLClient } from "graphql-request";
 
 const API_URL = process.env.WORDPRESS_API_URL!;
 
@@ -25,6 +27,9 @@ const fetchAPI = async <T extends object = {}>(query: string, { variables }: { v
   }
   return json.data;
 };
+
+export const client = new GraphQLClient(process.env.WORDPRESS_API_URL!, { headers: {} });
+export const backend = getSdk(client);
 
 export const getPreviewPost = async (id: string, idType = "DATABASE_ID") => {
   const data = await fetchAPI<{ post: Pick<IFullPost, "databaseId" | "slug" | "status"> }>(

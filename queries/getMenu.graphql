@@ -1,0 +1,38 @@
+query GetMenu {
+  menus(where: {slug: "hlavni-menu"}) {
+    edges {
+      node {
+        menuItems {
+          edges {
+            node {
+              __typename
+              id
+              connectedNode {
+                node {
+                  __typename
+                  id
+                  ... on Category {
+                    slug
+                  }
+                  ... on Page {
+                    slug
+                  }
+                  ... on Post {
+                    slug
+                  }
+                  ... on Tag {
+                    slug
+                  }
+                }
+              }
+              url
+              label
+              order
+              parentId
+            }
+          }
+        }
+      }
+    }
+  }
+}

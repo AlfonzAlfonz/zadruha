@@ -1,5 +1,5 @@
 import { Avatar } from "./Avatar";
-import { Date } from "./Date";
+import { DisplayDate } from "./Date";
 import { CoverImage } from "./CoverImage";
 import Link from "next/link";
 import { FC } from "react";
@@ -32,7 +32,7 @@ export const HeroPost: FC<Props> = ({ title, coverImage, date, excerpt, author, 
             </Link>
           </h3>
           <div className="mb-4 md:mb-0 text-lg">
-            <Date dateString={date} />
+            <DisplayDate dateString={date} />
           </div>
         </div>
         <div>

@@ -1,0 +1,67 @@
+query GetCategoryWithPosts($slug: String!) {
+  categories(where: { slug: [$slug] }) {
+    edges {
+      node {
+        name
+        slug
+        contentNodes {
+          edges {
+            node {
+              __typename
+              slug
+              ... on Post {
+                title
+                excerpt
+                slug
+                date
+                featuredImage {
+                  node {
+                    sourceUrl
+                    altText
+                  }
+                }
+                author {
+                  node {
+                    name
+                    firstName
+                    lastName
+                    avatar {
+                      url
+                    }
+                  }
+                }
+              }
+              ... on Page {
+                id
+                title
+                slug
+                date
+                featuredImage {
+                  node {
+                    sourceUrl
+                    altText
+                  }
+                }
+                author {
+                  node {
+                    name
+                    firstName
+                    lastName
+                    avatar {
+                      url
+                    }
+                  }
+                }
+              }
+              ... on MediaItem {
+                id
+                altText
+                sourceUrl
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

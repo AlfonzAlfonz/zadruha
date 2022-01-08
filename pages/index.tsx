@@ -1,44 +1,86 @@
-import { Container } from "components/Container";
-import { HeroPost } from "components/HeroPost";
-import { Intro } from "components/Intro";
+import { x } from "@xstyled/emotion";
+import { Button, Container } from "anolis-ui";
 import { Layout } from "components/Layout";
-import { MoreStories } from "components/MoreStories";
-import { getAllPostsForHome } from "lib/api";
-import { CMS_NAME } from "lib/constants";
+import { backend, getAllPostsForHome } from "lib/api";
+import { buildMenu, FineMenuItem } from "lib/buildMenu";
 import { Edges, IPost, Nod } from "lib/types";
 import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
 import { FC } from "react";
+
+import { pageLink } from "../components/Layout";
+import { PostPreview } from "../components/PostPreview";
 
 export const getStaticProps = async ({ preview = false }) => {
   const allPosts = await getAllPostsForHome(preview);
+  const menu = await backend.GetMenu();
   return {
-    props: { allPosts: allPosts, preview }
+    props: { allPosts, menu: buildMenu(menu), preview }
   };
 };
 
-const Index: FC<{ allPosts: Edges<Nod<IPost>>; preview: boolean }> = ({ allPosts: { edges }, preview }) => {
-  const heroPost = edges[0]?.node;
-  const morePosts = edges.slice(1);
-
+const Index: FC<{
+  allPosts: Edges<Nod<IPost>>;
+  preview: boolean;
+  menu: FineMenuItem[];
+}> = ({ allPosts: { edges }, preview, menu }) => {
   return (
     <>
-      <Layout preview={preview}>
+      <Layout
+        preview={preview}
+        _header={{ bg: "transparent", pt: 2 }}
+        _logo={{ color: { _: "white", hover: "white" } }}
+        _container={{ pt: 0 }}
+        subtitle
+      >
         <Head>
-          <title>Next.js Blog Example with {CMS_NAME}</title>
+          <title>Historie českého anarchismu (1880 – 1939) – Anarchistická historie</title>
         </Head>
+
+        <x.div
+          h="60vh"
+          display="flex"
+          alignItems="flex-end"
+          position="relative"
+          justifyContent="center"
+        >
+          <x.div background="url('/bg.jpg')" backgroundSize="100%" position="absolute" style={{ inset: 0 }} />
+          <Container position="absolute" top="75%">
+            <x.nav
+              spaceX={4}
+              display="flex"
+              justifyContent="center"
+
+            >
+              {menu.map(itm =>
+                itm.type === null
+                  ? <Button as="a" fontSize="lg" href={itm.url!} target="_blank">{itm.label}</Button>
+                  : (
+                    <Link key={itm.id} href={pageLink(itm.type!, itm.slug!)} passHref>
+                      <Button as="a" fontSize="lg">{itm.label}</Button>
+                    </Link>
+                  ))}
+            </x.nav>
+          </Container>
+        </x.div>
+
         <Container>
-          <Intro />
-          {heroPost && (
-            <HeroPost
-              title={heroPost.title}
-              coverImage={heroPost.featuredImage?.node}
-              date={heroPost.date}
-              author={heroPost.author?.node}
-              slug={heroPost.slug}
-              excerpt={heroPost.excerpt}
-            />
-          )}
-          {morePosts.length > 0 && <MoreStories posts={morePosts} />}
+          <x.div maxW="700px !important" margin="auto" mt={10}>
+            <x.h1 mt="2" mb="4" fontSize="4xl">Nejnovější články</x.h1>
+
+            {edges.map(({ node }) => (
+              <PostPreview
+                key={node.slug}
+                title={node.title}
+                coverImage={node.featuredImage?.node}
+                date={node.date}
+                author={node.author?.node}
+                slug={node.slug}
+                excerpt={node.excerpt}
+              />
+            ))}
+          </x.div>
         </Container>
       </Layout>
     </>

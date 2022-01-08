@@ -1,7 +1,7 @@
-import { Container } from "./Container";
 import cn from "classnames";
-import { EXAMPLE_PATH } from "../lib/constants";
 import { FC } from "react";
+
+import { Container } from "anolis-ui";
 
 export const Alert: FC<{ preview?: boolean }> = ({ preview }) => {
   return (
@@ -13,7 +13,7 @@ export const Alert: FC<{ preview?: boolean }> = ({ preview }) => {
     >
       <Container>
         <div className="py-2 text-center text-sm">
-          {preview ? (
+          {preview && (
             <>
               This is a page preview.{" "}
               <a
@@ -23,16 +23,6 @@ export const Alert: FC<{ preview?: boolean }> = ({ preview }) => {
                 Click here
               </a>{" "}
               to exit preview mode.
-            </>
-          ) : (
-            <>
-              The source code for this blog is{" "}
-              <a
-                href={`https://github.com/vercel/next.js/tree/canary/examples/${EXAMPLE_PATH}`}
-                className="underline hover:text-success duration-200 transition-colors"
-              >
-                available on GitHub
-              </a>.
             </>
           )}
         </div>

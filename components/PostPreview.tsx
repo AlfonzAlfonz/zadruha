@@ -1,17 +1,18 @@
 import { Avatar } from "./Avatar";
-import { Date } from "./Date";
+import { DisplayDate } from "./Date";
 import { CoverImage } from "./CoverImage";
 import Link from "next/link";
 import { FC } from "react";
 import { IAuthor, ICoverImage } from "lib/types";
+import { x } from "@xstyled/emotion";
 
 interface Props {
-  title: string;
-  coverImage?: ICoverImage;
-  date: string;
-  excerpt: string;
-  author?: IAuthor;
-  slug: string;
+  title?: string | null;
+  coverImage?: ICoverImage | null;
+  date?: string | null;
+  excerpt?: string | null;
+  author?: IAuthor | null;
+  slug?: string | null;
 }
 
 export const PostPreview: FC<Props> = ({
@@ -22,29 +23,32 @@ export const PostPreview: FC<Props> = ({
   author,
   slug
 }) => {
+  if (!slug) return null;
   return (
-    <div>
+    <x.div bg="white" p={5} mx={-5}>
       <div className="mb-5">
         {coverImage &&
           <CoverImage title={title} coverImage={coverImage} slug={slug} />}
       </div>
-      <h3 className="text-3xl mb-3 leading-snug">
-        <Link href={`/posts/${slug}`}>
-          <a
-            className="hover:underline"
-            dangerouslySetInnerHTML={{ __html: title }}
-          >
-          </a>
+      <x.h3 fontSize="3xl">
+        <Link href={`/prispevek/${slug}`}>
+          {title && (
+            <a
+              className="hover:underline"
+              dangerouslySetInnerHTML={{ __html: title }}
+            />
+          )}
         </Link>
-      </h3>
-      <div className="text-lg mb-4">
-        <Date dateString={date} />
-      </div>
-      <div
-        className="text-lg leading-relaxed mb-4"
-        dangerouslySetInnerHTML={{ __html: excerpt }}
-      />
-      {author && <Avatar author={author} />}
-    </div>
+      </x.h3>
+      <x.div fontSize="sm" py={2} display="flex" spaceX={2}>
+        <DisplayDate dateString={date!} /> <div>|</div> {author && <Avatar author={author} />}
+      </x.div>
+      {excerpt && (
+        <div
+          dangerouslySetInnerHTML={{ __html: excerpt }}
+        />
+      )}
+
+    </x.div>
   );
 };

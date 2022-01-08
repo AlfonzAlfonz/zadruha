@@ -1,0 +1,9 @@
+query GetCategorySlugs {
+  categories {
+    edges {
+      node {
+        slug
+      }
+    }
+  }
+}
