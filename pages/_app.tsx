@@ -88,4 +88,8 @@ const GlobalStyle = createGlobalStyle`
   body h1, body h2, body h3, body h4,body h5,body h6, body p {
     font-family: 'Lora',serif !important;
   }
+
+  body {
+    background: black;
+  }
 `;

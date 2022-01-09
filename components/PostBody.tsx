@@ -103,23 +103,30 @@ export const BodyStyle = styled.div`
     }
 
     &.wp-block-gallery {
-      padding: 0 10;
+      padding: 4 0;
+      @media (min-width: md) {
+        padding: 4 10;
+      }
+
       ul {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+        margin: 0;
+        padding: 0;
         
 
         li {
           list-style-type: none;
+          margin: 0;
 
           figure {
-            height: 200px;
             padding: 0;
             margin-bottom: 4;
           
             img {
-              max-height: 100%;
+              max-width: 100%;
+              max-height: 200px;
             }
           }
         }

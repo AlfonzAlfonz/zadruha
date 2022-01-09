@@ -1,6 +1,7 @@
 import { x } from "@xstyled/emotion";
 import { Button, Container } from "anolis-ui";
-import { Layout, pageLink } from "components/Layout";
+import { Layout } from "components/Layout";
+import { pageLink } from "components/Layout/Nav";
 import { PostPreview } from "components/PostPreview";
 import { getAllPostsForHome } from "lib/api";
 import { getProps, StaticPage } from "lib/getProps";
@@ -41,24 +42,27 @@ const Index: StaticPage<{ allPosts: Edges<Nod<IPost>> }> = ({ allPosts: { edges 
         >
           <x.div
             background="url('/bg.jpg')"
-            backgroundSize="100%"
+            backgroundSize={{ _: "cover", md: "100%" }}
+            backgroundPosition="center"
             position="absolute"
             style={{ inset: 0 }}
             boxShadow="0 0 10000px 0 rgba(0,0,0,0.6) inset"
           />
-          <Container position="absolute" top="75%">
+          <Container position="absolute" bottom="20%">
             <x.nav
               spaceX={4}
               display="flex"
               justifyContent="center"
-
+              overflow="hidden"
+              flexWrap="wrap"
+              mt={-4}
             >
               {menu.map(itm =>
                 itm.type === null
-                  ? <Button as="a" fontSize="lg" href={itm.url!} target="_blank">{itm.label}</Button>
+                  ? <Button as="a" fontSize="lg" mt={4} href={itm.url!} target="_blank">{itm.label}</Button>
                   : (
                     <Link key={itm.id} href={pageLink(itm.type!, itm.slug!)} passHref>
-                      <Button as="a" fontSize="lg">{itm.label}</Button>
+                      <Button as="a" mt={4} fontSize="lg">{itm.label}</Button>
                     </Link>
                   ))}
             </x.nav>

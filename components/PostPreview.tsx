@@ -2,9 +2,9 @@ import { Avatar } from "./Avatar";
 import { DisplayDate } from "./Date";
 import { CoverImage } from "./CoverImage";
 import Link from "next/link";
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { IAuthor, ICoverImage } from "lib/types";
-import { x } from "@xstyled/emotion";
+import styled, { x } from "@xstyled/emotion";
 
 interface Props {
   title?: string | null;
@@ -15,6 +15,8 @@ interface Props {
   slug?: string | null;
 }
 
+const excerptRegex = /<a href="\S+" class="more-link">(.+)<\/a>/;
+
 export const PostPreview: FC<Props> = ({
   title,
   coverImage,
@@ -23,7 +25,11 @@ export const PostPreview: FC<Props> = ({
   author,
   slug
 }) => {
+  // eslint-disable-next-line @typescript-eslint/no-extra-parens
+  // const exc = useMemo(() => (excerpt && excerptRegex.exec(excerpt)) || [null, null][1], [excerpt]);
+
   if (!slug) return null;
+
   return (
     <x.div bg="white" p={5} mx={-5} boxShadow="md">
       <div className="mb-5">
@@ -44,11 +50,20 @@ export const PostPreview: FC<Props> = ({
         <DisplayDate dateString={date!} /> <div>|</div> {author && <Avatar author={author} />}
       </x.div>
       {excerpt && (
-        <div
+        <LinkStyle
+          py={2}
           dangerouslySetInnerHTML={{ __html: excerpt }}
         />
       )}
 
+      <Link href={`/clanek/${slug}`} passHref><x.a mt={3}>Celý článek...</x.a></Link>
+
     </x.div>
   );
 };
+
+const LinkStyle = styled.divBox`
+  .link-more {
+    display: none;
+  }
+`;
