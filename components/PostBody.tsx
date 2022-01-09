@@ -1,73 +1,244 @@
 import styled from "@xstyled/emotion";
-import { FC } from "react";
+import { FC, useEffect, useRef } from "react";
 
 interface Props {
   content: string;
 }
 
 export const PostBody: FC<Props> = ({ content }) => {
+  const ref = useRef<HTMLDivElement>(null!);
+
+  useEffect(() => {
+    ref.current?.querySelectorAll(
+      "figure.wp-block-gallery img, .wp-block-cover img, .wp-block-media-text .wp-block-media-text__media img"
+    ).forEach(el => {
+      el.removeAttribute("sizes");
+      el.removeAttribute("width");
+      el.removeAttribute("height");
+    });
+  }, []);
+
   return (
-    <div className="max-w-2xl mx-auto">
-      <BodyStyle
-        dangerouslySetInnerHTML={{ __html: content }}
-      />
-    </div>
+    <BodyStyle
+      ref={ref}
+      dangerouslySetInnerHTML={{ __html: content }}
+    />
   );
 };
 
 export const BodyStyle = styled.div`
-.content {
-  @apply text-lg leading-relaxed;
-}
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-.content p,
-.content ul,
-.content ol,
-.content blockquote {
-  @apply my-6;
-}
+  p, blockquote, h1, h2, h3, h4, h5, h6, ul, ol {
+    max-width: 50rem;
+    width: 100%;
+  }
 
-.content a {
-  @apply underline;
-}
+  p {
+    padding-top: 6;
+    padding-bottom: 6;
+  }
 
-.content ul,
-.content ol {
-  @apply pl-4;
-}
+  h1, h2, h3, h4, h5, h6 {
 
-.content ul {
-  @apply list-disc;
-}
+  }
 
-.content ol {
-  @apply list-decimal;
-}
+  & > blockquote {
+    border-left: 5px solid;
+    border-color: zadruha-500;
 
-.content ul > li > ul,
-.content ol > li > ol {
-  @apply my-0 ml-4;
-}
+    padding-top: 4;
+    padding-left: 6;
+    padding-bottom: 6;
+    
+    p {
+      padding: 0 0 4 0;
+    }
+  }
 
-.content ul > li > ul {
-  list-style: circle;
-}
+  & > figure {
+    padding: 6 0;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    max-width: initial;
+    max-width: 84rem;
+    width: 100%;
 
-.content h2 {
-  @apply text-3xl mt-12 mb-4 leading-snug;
-}
+    table {
+      border-collapse: collapse;
+      
+      td {
+        padding: 2;
+        border: 1px solid;
+        border-color: gray-100;
+      }
+    }
 
-.content h3 {
-  @apply text-2xl mt-8 mb-4 leading-snug;
-}
+    blockquote {
+      text-align: center;
+      padding: 4 0 12;
 
-.content h4 {
-  @apply text-xl mt-6 mb-4 leading-snug;
-}
+      border-right: 5px solid;
+      border-left: 5px solid;
+      border-color: zadruha-500;
 
-.content pre {
-  @apply whitespace-pre overflow-x-auto p-4 text-sm leading-tight border border-gray-400 bg-gray-100;
-}
+      p {
+        font-size: xl;
+      }
+    }
+
+    &.wp-block-gallery {
+      padding: 0 10;
+      ul {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        
+
+        li {
+          list-style-type: none;
+
+          figure {
+            height: 200px;
+            padding: 0;
+            margin-bottom: 4;
+          
+            img {
+              max-height: 100%;
+            }
+          }
+        }
+      }
+    }
+
+    figcaption {
+      margin-top: 2;
+      font-size: sm;
+    }
+  }
+
+  ul li {
+    list-style-type: disc;
+    margin-left: 4;
+
+    ul li {
+      list-style-type: circle;
+    }
+  }
+
+  ol li {
+    list-style-type: decimal;
+    margin-left: 6;
+
+    ol li {
+      list-style-type: lower-roman;
+    }
+  }
+
+  ul, ol {
+    margin-top: 2;
+    margin-bottom: 2;
+    margin-left: 1;
+  }
+
+  & > ul, & > ol {
+    margin-top: 6;
+    margin-bottom: 6;
+  }
+
+  pre {
+    white-space: pre;
+    padding: 4;
+    border: 1px solid;
+    border-color: gray-200;
+    // @apply whitespace-pre overflow-x-auto p-4 text-sm leading-tight border border-gray-400 bg-gray-100;
+  }
+
+  .wp-block-cover {
+    padding: 6 0;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    max-width: initial;
+    max-width: 84rem;
+    width: 100%;
+    position: relative;
+
+    img {
+      max-width: 100%;
+      filter: brightness(0.4);
+    }
+
+    .wp-block-cover__inner-container {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      inset: 0;
+
+      p {
+        padding: 6 0;
+        color: white;
+        font-size: 3xl;
+      }
+    }
+
+  }
+
+  .wp-block-media-text {
+    display: flex;
+    padding: 6 0;
+
+    max-width: 50rem;
+    width: 100%;
+
+    .wp-block-media-text__media {
+      height: 400px;
+      
+      img {
+        max-height: 100%;
+      }
+    }
+
+    .wp-block-media-text__content > p {
+      padding: 0;
+    }
+  }
+  
+  .wp-block-buttons {
+    padding: 6 0;
+    max-width: 54rem;
+    width: 100%;
+
+    .wp-block-button__link {
+      padding: 4;
+      background-color: zadruha-500;
+      color: white;
+      border-radius: 1;
+    }
+  }
+
+  .wp-block-columns {
+    display: flex;
+    max-width: 54rem;
+    width: 100%;
+
+    .wp-block-column {
+      flex-grow: 1;
+    }
+  }
+
+  hr {
+    margin: 6 0;
+    border-bottom: 2px solid;
+    border-color: gray-200;
+    max-width: 54rem;
+    width: 100%;
+  }
 
 .content code {
   @apply text-sm;

@@ -2,7 +2,7 @@ import { SystemProps, x } from "@xstyled/emotion";
 import { Meta } from "components/Meta";
 import { FineMenuItem } from "lib/buildMenu";
 import Link from "next/link";
-import { cloneElement, FC } from "react";
+import { cloneElement, ComponentProps, FC } from "react";
 
 import { Alert } from "./Alert";
 
@@ -15,13 +15,31 @@ interface Props {
   _container?: SystemProps;
 }
 
-export const Layout: FC<Props> = ({ menu, preview, children, _header, _container, _logo, subtitle }) => {
+export const Layout: FC<Props> = ({
+  menu,
+  preview,
+  children,
+  _header,
+  _container,
+  _logo,
+  subtitle,
+  ...props
+}) => {
   return (
-    <x.div fontFamily="'Lora', serif;">
+    <x.div fontFamily="'Lora', serif;" {...props}>
       <Meta />
 
       <Alert preview={preview} />
-      <x.header display="flex" px={8} position="fixed" w="100vw" bg="white" zIndex={10} {..._header}>
+      <x.header
+        display="flex"
+        px={8}
+        position="fixed"
+        w="100vw"
+        bg="white"
+        zIndex={10}
+        boxShadow="lg"
+        {..._header}
+      >
         <Link href="/" passHref>
           <x.a
             fontSize="3xl"

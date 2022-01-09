@@ -24,11 +24,11 @@ const xstyledTheme = {
 const theme = createTheme({
   ...buttonTheme({
     baseStyle: {
-      bg: "zadruha-700"
+      bg: "zadruha-500"
     },
     variants: {
       solid: {
-        bg: { _: "zadruha-700", hover: "zadruha-800" },
+        bg: { _: "zadruha-500", hover: "zadruha-600" },
         borderRadius: 1,
         color: { _: "white", hover: "white" }
       }
@@ -46,6 +46,15 @@ const theme = createTheme({
         fontFamily: "'Lora', serif;"
       },
       h3: {
+        fontFamily: "'Lora', serif;"
+      },
+      h4: {
+        fontFamily: "'Lora', serif;"
+      },
+      h5: {
+        fontFamily: "'Lora', serif;"
+      },
+      h6: {
         fontFamily: "'Lora', serif;"
       }
     }
@@ -76,11 +85,7 @@ const GlobalStyle = createGlobalStyle`
     color: zadruha-900;
   }
 
-  body {
-    background: black;
-  }
-
-  body h1, body h2, body h3, body h4, body p {
+  body h1, body h2, body h3, body h4,body h5,body h6, body p {
     font-family: 'Lora',serif !important;
   }
 `;

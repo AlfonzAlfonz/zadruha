@@ -31,7 +31,7 @@ export const PostPreview: FC<Props> = ({
           <CoverImage title={title} coverImage={coverImage} slug={slug} />}
       </div>
       <x.h3 fontSize="3xl">
-        <Link href={`/prispevek/${slug}`}>
+        <Link href={`/clanek/${slug}`}>
           {title && (
             <a
               className="hover:underline"

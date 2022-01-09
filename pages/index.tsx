@@ -20,8 +20,11 @@ const Index: StaticPage<{ allPosts: Edges<Nod<IPost>> }> = ({ allPosts: { edges 
     <>
       <Layout
         preview={preview}
-        _header={{ bg: "transparent", pt: 2 }}
-        _logo={{ color: { _: "white", hover: "white" } }}
+        _header={{ bg: "transparent", pt: 2, boxShadow: "none" }}
+        _logo={{
+          color: { _: "white", hover: "white" },
+          textShadow: "0 0 10px black, 0 0 10px black"
+        }}
         _container={{ pt: 0 }}
         subtitle
       >
@@ -36,7 +39,13 @@ const Index: StaticPage<{ allPosts: Edges<Nod<IPost>> }> = ({ allPosts: { edges 
           position="relative"
           justifyContent="center"
         >
-          <x.div background="url('/bg.jpg')" backgroundSize="100%" position="absolute" style={{ inset: 0 }} />
+          <x.div
+            background="url('/bg.jpg')"
+            backgroundSize="100%"
+            position="absolute"
+            style={{ inset: 0 }}
+            boxShadow="0 0 10000px 0 rgba(0,0,0,0.6) inset"
+          />
           <Container position="absolute" top="75%">
             <x.nav
               spaceX={4}
@@ -57,7 +66,7 @@ const Index: StaticPage<{ allPosts: Edges<Nod<IPost>> }> = ({ allPosts: { edges 
         </x.div>
 
         <Container>
-          <x.div maxW="700px !important" margin="auto" mt={10}>
+          <x.div maxW="700px" margin="auto" mt={10} mb={20}>
             <x.h1 mt="2" mb="4" fontSize="4xl">Nejnovější články</x.h1>
 
             {edges.map(({ node }) => (

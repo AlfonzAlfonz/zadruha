@@ -53,16 +53,37 @@ const Post: StaticPage<Props> = ({ post, posts, preview, menu }) => {
 
   return (
     <Layout preview={preview} menu={menu}>
-      <x.div bg="black" minH={`${90 * 4}px`} mt={-20}>
+      <x.div
+        bg="black"
+        background="url('/bg.jpg')"
+        backgroundSize="100%"
+        backgroundPosition="center 10%"
+        backgroundAttachment="fixed"
+        minH={`${90 * 4}px`}
+        boxShadow="0px 0px 10000px 0px rgba(0,0,0,0.6) inset"
+        mt={-20}
+      >
 
       </x.div>
       {/* <Header /> */}
-      <Container bg="white" minH="100vh" mt="-120px">
+      <Container
+        bg="white"
+        mt="-120px"
+        display="flex"
+        justifyContent="center"
+        position="relative"
+        zIndex={2}
+        boxShadow="md"
+      >
         {router.isFallback
-          ? <PostTitle>Loading…</PostTitle>
+          ? (
+            <x.article pt={4} px={2} pb={`${40 * 4}px`}>
+              <PostTitle>Loading…</PostTitle>
+            </x.article>
+          )
           : (
             <>
-              <x.article pt={4} px={2}>
+              <x.article pt={8} px={2} pb={`${40 * 4}px`}>
                 <Head>
                   <title>
                     {post.title} | Next.js Blog Example with {CMS_NAME}
@@ -73,11 +94,9 @@ const Post: StaticPage<Props> = ({ post, posts, preview, menu }) => {
                   />
                 </Head>
                 <PostTitle>{post.title}</PostTitle>
-                <x.div fontSize="sm" py={2} display="flex" spaceX={2}>
-                  <DisplayDate dateString={post.date} /> <div>|</div> {post.author && <Avatar author={post.author.node} />}
-                </x.div>
-                <x.div fontSize="sm" py={2} display="flex" spaceX={2}>
-                  {post.tags.edges.length > 0 && <Tags tags={post.tags} />}
+                <x.div fontSize="sm" py={2} display="flex" spaceX={2} maxW="50rem" m="auto">
+                  <DisplayDate dateString={post.date} />  {post.author && <><div>|</div><Avatar author={post.author.node} /></>}
+                  {post.tags.edges.length > 0 && <><div>|</div><Tags tags={post.tags} /></>}
                 </x.div>
 
                 <PostBody content={post.content} />
