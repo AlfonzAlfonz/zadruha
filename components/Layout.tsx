@@ -54,7 +54,7 @@ export const Layout: FC<Props> = ({
             {subtitle && (
               <>
                 <br />
-                <x.span fontSize="xs" display="block">historie českého anarchistického hnutí (1880-1938)</x.span>
+                <x.span fontSize="xs" display="block">historie českého anarchistického hnutí</x.span>
               </>
             )}
           </x.a>

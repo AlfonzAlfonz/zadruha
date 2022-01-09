@@ -77,13 +77,13 @@ const Post: StaticPage<Props> = ({ post, posts, preview, menu }) => {
       >
         {router.isFallback
           ? (
-            <x.article pt={4} px={2} pb={`${40 * 4}px`}>
+            <x.article pt={16} px={2} pb={`${40 * 4}px`}>
               <PostTitle>Loading…</PostTitle>
             </x.article>
           )
           : (
             <>
-              <x.article pt={8} px={2} pb={`${40 * 4}px`}>
+              <x.article pt={16} px={2} pb={`${40 * 4}px`}>
                 <Head>
                   <title>
                     {post.title} | Next.js Blog Example with {CMS_NAME}

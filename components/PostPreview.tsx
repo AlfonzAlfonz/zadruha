@@ -25,7 +25,7 @@ export const PostPreview: FC<Props> = ({
 }) => {
   if (!slug) return null;
   return (
-    <x.div bg="white" p={5} mx={-5}>
+    <x.div bg="white" p={5} mx={-5} boxShadow="md">
       <div className="mb-5">
         {coverImage &&
           <CoverImage title={title} coverImage={coverImage} slug={slug} />}
