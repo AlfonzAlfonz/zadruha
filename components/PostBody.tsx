@@ -10,7 +10,7 @@ export const PostBody: FC<Props> = ({ content }) => {
 
   useEffect(() => {
     ref.current?.querySelectorAll(
-      "figure.wp-block-gallery img, .wp-block-cover img, .wp-block-media-text .wp-block-media-text__media img"
+      "figure.wp-block-gallery img, .wp-block-cover img, .wp-block-media-text .wp-block-media-text__media img, .wp-block-image img"
     ).forEach(el => {
       el.removeAttribute("sizes");
       el.removeAttribute("width");
@@ -64,8 +64,20 @@ export const BodyStyle = styled.div`
     flex-direction:column;
     align-items: center;
     max-width: initial;
-    max-width: 84rem;
+    max-width: 100%;
     width: 100%;
+
+    @media (min-width: lg){
+      max-width: 84rem;
+    }
+
+    &.wp-block-image {
+      width: 100%;
+
+      img {
+        width: 100%;
+      }
+    }
 
     table {
       border-collapse: collapse;
@@ -192,6 +204,13 @@ export const BodyStyle = styled.div`
   .wp-block-media-text {
     display: flex;
     padding: 6 0;
+    flex-direction: column;
+    align-items: center;
+
+    @media (min-width: md){
+      align-items: stretch;
+      flex-direction: row;
+    }
 
     max-width: 50rem;
     width: 100%;
@@ -204,8 +223,15 @@ export const BodyStyle = styled.div`
       }
     }
 
-    .wp-block-media-text__content > p {
-      padding: 0;
+    .wp-block-media-text__content {
+      width: 100%;
+      p {
+        padding: 6 0;
+
+        @media (min-width: md){
+          padding: 0;
+        }
+      }
     }
   }
   
@@ -213,6 +239,8 @@ export const BodyStyle = styled.div`
     padding: 6 0;
     max-width: 54rem;
     width: 100%;
+    display: flex;
+    flex-wrap: wrap;
 
     .wp-block-button__link {
       padding: 4;

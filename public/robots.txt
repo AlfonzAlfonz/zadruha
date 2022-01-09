@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://zadruha.org
+
+# Sitemaps
+Sitemap: https://zadruha.org/sitemap.xml

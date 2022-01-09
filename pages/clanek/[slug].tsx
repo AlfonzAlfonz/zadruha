@@ -77,13 +77,13 @@ const Post: StaticPage<Props> = ({ post, posts, preview, menu }) => {
       >
         {router.isFallback
           ? (
-            <x.article pt={16} px={2} pb={`${40 * 4}px`}>
+            <x.article pt={16} px={2} pb={`${40 * 4}px`} w="100%">
               <PostTitle>Loading…</PostTitle>
             </x.article>
           )
           : (
             <>
-              <x.article pt={16} px={2} pb={`${40 * 4}px`}>
+              <x.article pt={16} px={2} pb={`${40 * 4}px`} w="100%">
                 <Head>
                   <title>
                     {post.title} | Next.js Blog Example with {CMS_NAME}
@@ -94,7 +94,14 @@ const Post: StaticPage<Props> = ({ post, posts, preview, menu }) => {
                   />
                 </Head>
                 <PostTitle>{post.title}</PostTitle>
-                <x.div fontSize="sm" py={2} display="flex" spaceX={2} maxW="50rem" m="auto">
+                <x.div
+                  fontSize="sm"
+                  py={2}
+                  display="flex"
+                  spaceX={2}
+                  maxW={{ _: "100%", lg: "50rem" }}
+                  m="auto"
+                >
                   <DisplayDate dateString={post.date} />  {post.author && <><div>|</div><Avatar author={post.author.node} /></>}
                   {post.tags.edges.length > 0 && <><div>|</div><Tags tags={post.tags} /></>}
                 </x.div>
